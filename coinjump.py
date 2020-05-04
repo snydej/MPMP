@@ -117,10 +117,10 @@ def find_minimum():
     for coin in ((0, 0), (0, 1), (1, 2)):
         find_solutions(new_grid(coin), None, 0, [], acc)
     
-    return acc.min_turns, acc.jumps
+    return acc.jumps
 
 # The solution in "raw" form
-num_turns, jumps = find_minimum()
+jumps = find_minimum()
 
 # Everything after this point is dedicated to pretty printing the solution
 
@@ -152,13 +152,17 @@ def chain_jumps(jumps):
     
     return result
 
+moves = chain_jumps(jumps)
+
 def format_move(move):
     return '-'.join(str(convert_point(p)) for p in move)
 
+formatted_moves = ', '.join(format_move(m) for m in moves)
+
 # The end point of the first jump must be the initial coin removed
 print('Remove %d' % convert_point(jumps[0][1]))
-print('Moves: ' + ', '.join(format_move(m) for m in chain_jumps(jumps)))
+print('%d Moves: %s' % (len(moves), formatted_moves))
 
 # Output:
 # Remove 2
-# Moves: 7-2, 1-4, 9-7-2, 6-1-4-6, 10-3
+# 5 Moves: 7-2, 1-4, 9-7-2, 6-1-4-6, 10-3
