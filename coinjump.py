@@ -1,4 +1,4 @@
-# Written by Joshua Snyder
+# Written by Joshua Snyder (joshsnyder@msn.com)
 # 
 # This is a solution to Matt Parker's Math(s) Puzzle #5
 # https://www.youtube.com/watch?v=TEkJMFTyZwM
@@ -11,7 +11,7 @@
 # The width and height of the triagular grid
 SIZE = 4
 
-# The 6 directions that can be moved in
+# The 6 directions that can be moved in, in the form (delta_x, delta_y)
 directions = ((1, 0), (0, -1), (-1, -1), (-1, 0), (0, 1), (1, 1))
 
 def move(point, direction):
@@ -33,7 +33,7 @@ def new_grid(missing):
     
     # [True] * 3 gives [True, True, True] for example
     # each row of the grid has a different number of spaces
-    # range(1, 5) gives [1, 2, 3, 4]  which are the lengths of each row
+    # range(1, 5) gives [1, 2, 3, 4], which are the lengths of each row
     # Google "python list comprehension" for more info
     result = [[True] * i for i in range(1, SIZE + 1)]
     
@@ -130,6 +130,7 @@ def convert_point(point):
     https://www.think-maths.co.uk/sites/default/files/2020-04/CoinGrid_1.png
     '''
     x, y = point
+    # Uses triangular numbers of course :)
     return 1 + x + y * (y + 1) // 2
 
 def chain_jumps(jumps):
@@ -157,3 +158,7 @@ def format_move(move):
 # The end point of the first jump must be the initial coin removed
 print('Remove %d' % convert_point(jumps[0][1]))
 print('Moves: ' + ', '.join(format_move(m) for m in chain_jumps(jumps)))
+
+# Output:
+# Remove 2
+# Moves: 7-2, 1-4, 9-7-2, 6-1-4-6, 10-3
